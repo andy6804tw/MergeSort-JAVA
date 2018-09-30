@@ -1,16 +1,44 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		List<Integer> list = new ArrayList<>(); //建立一個整數形態的ArrayList串列
-		list = Arrays.asList(13, 8, 27, 35, 2, 1, 9, 6, 34, 2, 45, 26); // 賦予初始值
-		System.out.println("MergeSort By Recursive Method");
-		mergeSort(list, 0, list.size() - 1);//(資料,最左邊索引值,最右邊索引值)
+		Scanner scn=new Scanner(System.in);
+		List<Integer> list; //建立一個整數形態的List串列
+		while(true) {
+			list = new ArrayList<>(); //建立一個空的ArrayList容器
+			System.out.println("Please input Integer list:");
+			String str=scn.nextLine();
+			String arr[]=str.split(" ");
+			for(int i=0;i<arr.length;i++) {
+				try {
+					int num=Integer.parseInt(arr[i]);
+					list.add(num);
+				}
+				catch(NumberFormatException ex) {
+				    System.out.println(arr[i]+" 並非整數");
+				}catch(Exception ex) {
+				    ex.printStackTrace() ;
+				}
+			}
+			if(list.size()==arr.length) //確保輸入的都為整數，直到輸入正確為止
+				break;
+		}
+		
+		System.out.println("Origin unsorted list");
 		for (int i = 0; i < list.size(); i++)
-			System.out.println(list.get(i));
+			System.out.print(list.get(i)+" ");
+		System.out.println("");
+		
+		mergeSort(list, 0, list.size() - 1);//(資料,最左邊索引值,最右邊索引值)
+		
+		System.out.println("MergeSort by recursive method");
+		for (int i = 0; i < list.size(); i++)
+			System.out.print(list.get(i)+" ");
+		
 	}
 	public static void mergeSort(List<Integer> list,int left,int right) {
 		if(left<right) { //當左邊大於右邊時代表只剩一個元素了
